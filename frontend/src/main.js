@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router/index.js'  // Add the full path
+import router from './router/index.js'  
 import './assets/main.css'
 
 const app = createApp(App)

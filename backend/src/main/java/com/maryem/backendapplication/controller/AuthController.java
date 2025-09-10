@@ -29,18 +29,20 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        try {
-            String token = authService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-            response.put("message", "Login successful");
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        @PostMapping("/login")
+        public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+            try {
+                String token = authService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                response.put("message", "Login successful");
+                return ResponseEntity.ok(response);
+            } catch (RuntimeException e) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", e.getMessage());
+                return ResponseEntity.badRequest().body(errorResponse);
+            }
         }
-    }
 
     // Helper class for login request
     public static class LoginRequest {
